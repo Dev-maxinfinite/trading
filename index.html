@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TradingPro | Join Our Exclusive Trading Community</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Mobile-first responsive styles */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        /* Prevent scrolling only on mobile */
+        @media (max-width: 768px) {
+            html, body {
+                overflow: hidden;
+                height: 100%;
+                position: fixed;
+                width: 100%;
+            }
+        }
+        
+        /* Glass Morphism Effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+        }
+        
+        /* Liquid Glass Effect - Responsive */
+        .liquid-glass {
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.25);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (min-width: 768px) {
+            .liquid-glass {
+                border-radius: 28px;
+                box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
+            }
+        }
+        
+        /* Animated gradient background */
+        .animated-gradient {
+            background: linear-gradient(-45deg, #0f172a, #1e3a8a, #065f46, #047857);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Big Button Styles - Responsive */
+        .big-trading-button {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 1.5rem;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        @media (min-width: 768px) {
+            .big-trading-button {
+                padding: 1.25rem 2.5rem;
+                width: auto;
+            }
+        }
+        
+        .big-trading-button:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(16, 185, 129, 0.35);
+        }
+        
+        .big-trading-button:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+        
+        /* Touch-friendly button */
+        @media (max-width: 768px) {
+            .big-trading-button {
+                min-height: 60px;
+            }
+        }
+        
+        .big-trading-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(12, 12, 12, 0.3), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+        .big-trading-button:hover::before {
+            left: 100%;
+        }
+        
+        /* Trading chart animation */
+        .trading-chart {
+            position: relative;
+            overflow: hidden;
+        }
+        .chart-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #10b981, transparent);
+            animation: chartMove 3s linear infinite;
+        }
+        @keyframes chartMove {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        /* Admin Panel Styles - Responsive */
+        #adminPanel {
+            position: fixed;
+            top: 70px;
+            right: 10px;
+            z-index: 9999;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            width: calc(100vw - 40px);
+            max-width: 320px;
+            max-height: 80vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        @media (min-width: 768px) {
+            #adminPanel {
+                top: 80px;
+                right: 20px;
+                width: 320px;
+            }
+        }
+        
+        #adminPanel.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .secret-access-area {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            z-index: 9998;
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        @media (min-width: 768px) {
+            .secret-access-area {
+                width: 100px;
+                height: 100px;
+            }
+        }
+        
+        .profit-animation {
+            animation: profitPulse 2s infinite;
+        }
+        @keyframes profitPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Mobile-specific adjustments */
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 2rem !important;
+                line-height: 1.2 !important;
+            }
+            
+            .liquid-glass {
+                padding: 1rem !important;
+            }
+            
+            .grid-cols-2 {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            
+            .grid-cols-3 {
+                grid-template-columns: repeat(1, 1fr) !important;
+            }
+            
+            .gap-4 {
+                gap: 0.75rem !important;
+            }
+            
+            .p-5 {
+                padding: 1rem !important;
+            }
+            
+            .p-4 {
+                padding: 0.75rem !important;
+            }
+        }
+        
+        /* Safe area for notched phones */
+        @supports (padding: max(0px)) {
+            body, .liquid-glass {
+                padding-left: min(1rem, env(safe-area-inset-left));
+                padding-right: min(1rem, env(safe-area-inset-right));
+                padding-bottom: min(1rem, env(safe-area-inset-bottom));
+            }
+            
+            .secret-access-area {
+                top: env(safe-area-inset-top, 0px);
+                right: env(safe-area-inset-right, 0px);
+            }
+            
+            #darkModeToggle {
+                top: calc(1rem + env(safe-area-inset-top, 0px));
+            }
+        }
+        
+        /* Improve touch targets */
+        button, 
+        a.big-trading-button,
+        .secret-access-area {
+            min-height: 44px;
+            min-width: 44px;
+        }
+        
+        /* Smooth scrolling for admin panel on mobile */
+        #adminPanel {
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+        }
+        
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        #adminPanel::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        #adminPanel::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        
+        #adminPanel::-webkit-scrollbar-thumb {
+            background: rgba(16, 185, 129, 0.5);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="animated-gradient flex items-start justify-center p-2 md:p-4">
+    <!-- Secret Admin Access Area (Top-Right Corner) -->
+    <div class="secret-access-area" id="secretAccess" aria-label="Secret admin access area"></div>
+    
+    <!-- Admin Panel (Hidden by default) -->
+    <div id="adminPanel" class="glass-card rounded-2xl shadow-2xl p-4 md:p-6 w-80 dark:bg-slate-800/95 border border-emerald-500/30">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="font-bold text-lg text-slate-800 dark:text-white">
+                <i class="fas fa-chart-line text-emerald-500 mr-2"></i>Click Analytics
+            </h3>
+            <button id="closeAdminPanel" class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white p-2">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+        </div>
+        
+        <div class="space-y-4">
+            <!-- Total Clicks -->
+            <div class="bg-emerald-50 dark:bg-emerald-900/30 p-3 md:p-4 rounded-xl border border-emerald-200 dark:border-emerald-700">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <div class="text-sm text-slate-600 dark:text-slate-300">Total Clicks</div>
+                        <div id="totalClicks" class="text-2xl font-bold text-emerald-600 dark:text-emerald-400">0</div>
+                    </div>
+                    <i class="fas fa-mouse-pointer text-emerald-500 text-xl"></i>
+                </div>
+            </div>
+            
+            <!-- Today's Clicks -->
+            <div class="bg-cyan-50 dark:bg-cyan-900/30 p-3 md:p-4 rounded-xl border border-cyan-200 dark:border-cyan-700">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <div class="text-sm text-slate-600 dark:text-slate-300">Today's Clicks</div>
+                        <div id="todayClicks" class="text-2xl font-bold text-cyan-600 dark:text-cyan-400">0</div>
+                    </div>
+                    <i class="fas fa-calendar-day text-cyan-500 text-xl"></i>
+                </div>
+            </div>
+            
+            <!-- Last Click Time -->
+            <div class="bg-purple-50 dark:bg-purple-900/30 p-3 md:p-4 rounded-xl border border-purple-200 dark:border-purple-700">
+                <div class="text-sm text-slate-600 dark:text-slate-300">Last Click Time</div>
+                <div id="lastClickTime" class="text-sm font-medium text-purple-600 dark:text-purple-400">No clicks yet</div>
+            </div>
+            
+            <!-- Daily Breakdown -->
+            <div class="bg-amber-50 dark:bg-amber-900/30 p-3 md:p-4 rounded-xl border border-amber-200 dark:border-amber-700">
+                <div class="text-sm text-slate-600 dark:text-slate-300 mb-2">Last 7 Days Clicks</div>
+                <div id="weeklyChart" class="text-xs text-amber-700 dark:text-amber-300"></div>
+            </div>
+            
+            <!-- Control Buttons -->
+            <div class="flex flex-col sm:flex-row gap-2 pt-2">
+                <button id="refreshStats" class="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white py-3 rounded-lg text-sm font-medium transition">
+                    <i class="fas fa-sync-alt mr-1"></i> Refresh
+                </button>
+                <button id="exportData" class="flex-1 bg-cyan-500 hover:bg-cyan-600 text-white py-3 rounded-lg text-sm font-medium transition">
+                    <i class="fas fa-download mr-1"></i> Export
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dark mode toggle -->
+    <button id="darkModeToggle" class="fixed top-4 right-4 z-50 p-3 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm shadow-lg" aria-label="Toggle dark mode">
+        <i class="fas fa-moon text-slate-800 dark:text-yellow-300"></i>
+    </button>
+
+    <!-- Main Container - Responsive -->
+    <div class="w-full max-w-6xl mx-auto overflow-y-auto" style="max-height: 100vh;">
+        <div class="liquid-glass p-4 md:p-8 lg:p-12 my-4 md:my-8">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-8">
+                <!-- Left Content Section -->
+                <div class="lg:w-1/2 text-center lg:text-left order-2 lg:order-1">
+                    <!-- Trading Badge -->
+                    <div class="inline-flex items-center gap-2 mb-4 md:mb-6 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-gradient-to-r from-emerald-500 to-emerald-700 text-white font-semibold text-xs md:text-sm">
+                        <i class="fas fa-chart-line"></i>
+                        <span>LIVE: Trading Signals Active</span>
+                    </div>
+                    
+                    <!-- Updated Heading - "with AI" removed -->
+                    <h1 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-slate-900 dark:text-white mb-4 md:mb-6 leading-tight">
+                        Master <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Profitable Trading</span>
+                    </h1>
+                    
+                    <p class="text-base md:text-lg lg:text-xl text-slate-700 dark:text-slate-300 mb-6 md:mb-8">
+                        Join <span class="font-bold text-emerald-600 dark:text-emerald-400">50,000+ successful traders</span> in our exclusive Telegram community. Get daily trading signals, market analysis, and proven strategies.
+                    </p>
+                    
+                    <!-- Trading Stats -->
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-6 md:mb-8">
+                        <div class="glass-card p-3 md:p-4 rounded-2xl text-center profit-animation border border-emerald-200 dark:border-emerald-700">
+                            <div class="text-xl md:text-2xl font-bold text-emerald-600 dark:text-emerald-400">92.5%</div>
+                            <div class="text-xs md:text-sm text-slate-600 dark:text-slate-400">Win Rate</div>
+                        </div>
+                        <div class="glass-card p-3 md:p-4 rounded-2xl text-center border border-cyan-200 dark:border-cyan-700">
+                            <div class="text-xl md:text-2xl font-bold text-cyan-600 dark:text-cyan-400">24/7</div>
+                            <div class="text-xs md:text-sm text-slate-600 dark:text-slate-400">Market Analysis</div>
+                        </div>
+                        <div class="glass-card p-3 md:p-4 rounded-2xl text-center border border-green-200 dark:border-green-700">
+                            <div class="text-xl md:text-2xl font-bold text-green-600 dark:text-green-400">₹10L+</div>
+                            <div class="text-xs md:text-sm text-slate-600 dark:text-slate-400">Monthly Profit</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Animated Trading Chart -->
+                    <div class="trading-chart bg-slate-900/20 dark:bg-slate-800/30 rounded-xl p-3 mb-4 md:mb-6 border border-slate-300/20 dark:border-slate-700/30">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 gap-1">
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-300">
+                                <i class="fas fa-chart-candlestick mr-1"></i> Live Trading Performance
+                            </span>
+                            <span class="text-sm text-emerald-500 font-bold">
+                                <i class="fas fa-arrow-up mr-1"></i> +4.25% Today
+                            </span>
+                        </div>
+                        <div class="relative h-16 bg-slate-800/20 rounded-lg overflow-hidden">
+                            <div class="chart-line"></div>
+                            <!-- Chart visualization -->
+                            <div class="absolute inset-0 flex items-end px-1 md:px-2">
+                                <div class="h-4 w-2 md:w-3 bg-emerald-500/30 mx-0.5 rounded-t"></div>
+                                <div class="h-8 w-2 md:w-3 bg-emerald-500/50 mx-0.5 rounded-t"></div>
+                                <div class="h-12 w-2 md:w-3 bg-emerald-500/70 mx-0.5 rounded-t"></div>
+                                <div class="h-16 w-2 md:w-3 bg-emerald-500 mx-0.5 rounded-t"></div>
+                                <div class="h-10 w-2 md:w-3 bg-emerald-500/80 mx-0.5 rounded-t"></div>
+                                <div class="h-6 w-2 md:w-3 bg-emerald-500/40 mx-0.5 rounded-t"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- BIG TELEGRAM BUTTON -->
+                    <div class="relative my-6 md:my-10">
+                        <a href="https://t.me/+5gY7UyddUkg5ZjJl" target="_blank" 
+                           id="telegramBtn"
+                           class="big-trading-button inline-flex items-center justify-center gap-2 md:gap-4 bg-gradient-to-r from-emerald-500 via-emerald-600 to-cyan-600 hover:from-emerald-600 hover:via-emerald-700 hover:to-cyan-700 text-white font-bold text-lg md:text-xl lg:text-2xl py-4 md:py-5 px-4 md:px-10 rounded-xl md:rounded-2xl shadow-xl md:shadow-2xl w-full">
+                            <i class="fab fa-telegram text-2xl md:text-3xl"></i>
+                            <span class="text-lg md:text-xl lg:text-2xl">Join Trading Community</span>
+                            <i class="fas fa-arrow-right text-xl md:text-2xl hidden sm:inline"></i>
+                        </a>
+                        <!-- Hidden counter (not displayed to user) -->
+                        <div id="clickCounter" class="hidden"></div>
+                    </div>
+                    
+                    <!-- Trust indicators -->
+                    <div class="mt-6 md:mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-3 md:gap-6 text-slate-600 dark:text-slate-400 text-sm md:text-base">
+                        <div class="flex items-center gap-1 md:gap-2">
+                            <div class="p-1.5 md:p-2 rounded-full bg-emerald-100 dark:bg-emerald-900/40">
+                                <i class="fas fa-shield-alt text-emerald-500 text-sm md:text-base"></i>
+                            </div>
+                            <span>Verified Signals</span>
+                        </div>
+                        <div class="flex items-center gap-1 md:gap-2">
+                            <div class="p-1.5 md:p-2 rounded-full bg-yellow-100 dark:bg-yellow-900/40">
+                                <i class="fas fa-bolt text-yellow-500 text-sm md:text-base"></i>
+                            </div>
+                            <span>Real-time Alerts</span>
+                        </div>
+                        <div class="flex items-center gap-1 md:gap-2">
+                            <div class="p-1.5 md:p-2 rounded-full bg-cyan-100 dark:bg-cyan-900/40">
+                                <i class="fas fa-users text-cyan-500 text-sm md:text-base"></i>
+                            </div>
+                            <span>50K+ Traders</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Image Section -->
+                <div class="lg:w-1/2 flex justify-center order-1 lg:order-2 mb-6 lg:mb-0">
+                    <div class="relative">
+                        <!-- Your Image with modern frame -->
+                        <div class="rounded-2xl md:rounded-3xl overflow-hidden p-1 md:p-2 bg-gradient-to-br from-slate-900 to-emerald-900 shadow-xl md:shadow-2xl">
+                            <img src="https://image2url.com/images/1766318095483-a5386213-57bb-413f-a09a-43c70151d53d.jpeg" 
+                                 alt="Trading Analysis"
+                                 class="w-full max-w-sm md:max-w-lg rounded-xl md:rounded-2xl shadow-xl md:shadow-2xl border-2 border-emerald-500/50">
+                        </div>
+                        
+                        <!-- Floating trading elements -->
+                        <div class="absolute -top-3 -left-3 md:-top-4 md:-left-4 glass-card p-2 md:p-3 rounded-xl md:rounded-2xl shadow-lg border border-emerald-500/30">
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <i class="fas fa-chart-line text-emerald-500 text-sm md:text-base"></i>
+                                <span class="font-bold text-xs md:text-sm text-emerald-700 dark:text-emerald-300">BULLISH</span>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute -bottom-3 -right-3 md:-bottom-4 md:-right-4 glass-card p-2 md:p-4 rounded-xl md:rounded-2xl shadow-lg border border-cyan-500/30">
+                            <div class="text-center">
+                                <div class="text-lg md:text-xl font-bold text-cyan-600">PRO</div>
+                                <div class="text-xs text-cyan-700 dark:text-cyan-300">SIGNALS</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trading Features Section -->
+            <div class="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-slate-300/30 dark:border-slate-700/30">
+                <h3 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white mb-6 md:mb-8 text-center">
+                    <i class="fas fa-gem mr-2 md:mr-3 text-emerald-500"></i>What You'll Get in Our Community
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                    <div class="glass-card p-4 md:p-5 rounded-2xl hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all duration-300 hover:scale-[1.02] border border-slate-200 dark:border-slate-700">
+                        <div class="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
+                            <div class="p-2 md:p-3 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600">
+                                <i class="fas fa-bullhorn text-white text-sm md:text-base"></i>
+                            </div>
+                            <h4 class="font-bold text-base md:text-lg text-slate-800 dark:text-white">Live Trading Signals</h4>
+                        </div>
+                        <p class="text-xs md:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Entry/Exit points with 92% accuracy across Nifty, BankNifty, Stocks & Crypto. Real-time alerts delivered instantly.</p>
+                    </div>
+                    
+                    <div class="glass-card p-4 md:p-5 rounded-2xl hover:bg-cyan-50 dark:hover:bg-cyan-900/20 transition-all duration-300 hover:scale-[1.02] border border-slate-200 dark:border-slate-700">
+                        <div class="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
+                            <div class="p-2 md:p-3 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-600">
+                                <i class="fas fa-chart-pie text-white text-sm md:text-base"></i>
+                            </div>
+                            <h4 class="font-bold text-base md:text-lg text-slate-800 dark:text-white">Market Analysis</h4>
+                        </div>
+                        <p class="text-xs md:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Daily technical & fundamental analysis for informed trading decisions. Learn to read market trends like a pro.</p>
+                    </div>
+                    
+                    <div class="glass-card p-4 md:p-5 rounded-2xl hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300 hover:scale-[1.02] border border-slate-200 dark:border-slate-700">
+                        <div class="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
+                            <div class="p-2 md:p-3 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600">
+                                <i class="fas fa-graduation-cap text-white text-sm md:text-base"></i>
+                            </div>
+                            <h4 class="font-bold text-base md:text-lg text-slate-800 dark:text-white">Trading Education</h4>
+                        </div>
+                        <p class="text-xs md:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Learn advanced strategies, risk management & psychology from experts. Transform from beginner to pro trader.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Tailwind CSS config
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'telegram-blue': '#0088cc',
+                        'telegram-dark': '#006a9e'
+                    }
+                }
+            }
+        };
+        
+        // DOM Ready
+        document.addEventListener('DOMContentLoaded', function() {
+            const telegramBtn = document.getElementById('telegramBtn');
+            const clickCounter = document.getElementById('clickCounter');
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const secretAccess = document.getElementById('secretAccess');
+            const adminPanel = document.getElementById('adminPanel');
+            const closeAdminPanel = document.getElementById('closeAdminPanel');
+            const totalClicks = document.getElementById('totalClicks');
+            const todayClicks = document.getElementById('todayClicks');
+            const lastClickTime = document.getElementById('lastClickTime');
+            const weeklyChart = document.getElementById('weeklyChart');
+            const refreshStats = document.getElementById('refreshStats');
+            const exportData = document.getElementById('exportData');
+            
+            // Check if device is mobile
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
+            // Initialize tracking system
+            initializeTrackingSystem();
+            
+            // Function to initialize tracking system
+            function initializeTrackingSystem() {
+                // Check if today's date has changed (for daily reset)
+                const today = new Date().toDateString();
+                const lastSavedDate = localStorage.getItem('lastTrackDate');
+                
+                if (lastSavedDate !== today) {
+                    // New day - reset daily counter
+                    localStorage.setItem('todayClickCount', '0');
+                    localStorage.setItem('lastTrackDate', today);
+                    
+                    // Update daily history
+                    updateDailyHistory();
+                }
+                
+                // Initialize data if not exists
+                if (!localStorage.getItem('totalClickCount')) {
+                    localStorage.setItem('totalClickCount', '0');
+                }
+                
+                if (!localStorage.getItem('todayClickCount')) {
+                    localStorage.setItem('todayClickCount', '0');
+                }
+                
+                if (!localStorage.getItem('clickHistory')) {
+                    localStorage.setItem('clickHistory', JSON.stringify([]));
+                }
+                
+                if (!localStorage.getItem('dailyHistory')) {
+                    localStorage.setItem('dailyHistory', JSON.stringify({}));
+                }
+                
+                if (!localStorage.getItem('lastTrackDate')) {
+                    localStorage.setItem('lastTrackDate', today);
+                }
+                
+                // Update admin panel
+                updateAdminPanel();
+            }
+            
+            // Update daily history
+            function updateDailyHistory() {
+                const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+                const dailyHistory = JSON.parse(localStorage.getItem('dailyHistory') || '{}');
+                
+                if (!dailyHistory[today]) {
+                    dailyHistory[today] = 0;
+                    localStorage.setItem('dailyHistory', JSON.stringify(dailyHistory));
+                }
+            }
+            
+            // Update admin panel display
+            function updateAdminPanel() {
+                const total = parseInt(localStorage.getItem('totalClickCount') || '0');
+                const today = parseInt(localStorage.getItem('todayClickCount') || '0');
+                const history = JSON.parse(localStorage.getItem('clickHistory') || '[]');
+                const dailyHistory = JSON.parse(localStorage.getItem('dailyHistory') || '{}');
+                
+                // Update main stats
+                totalClicks.textContent = total.toLocaleString();
+                todayClicks.textContent = today.toLocaleString();
+                
+                // Update last click time
+                if (history.length > 0) {
+                    const lastClick = history[history.length - 1];
+                    const lastDate = new Date(lastClick.timestamp);
+                    lastClickTime.textContent = lastDate.toLocaleString('en-IN', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        day: '2-digit',
+                        month: 'short'
+                    });
+                }
+                
+                // Update weekly chart
+                updateWeeklyChart(dailyHistory);
+                
+                // Update console log
+                console.log(`📊 Trading Button Analytics - Total: ${total}, Today: ${today}`);
+            }
+            
+            // Update weekly chart
+            function updateWeeklyChart(dailyHistory) {
+                const dates = Object.keys(dailyHistory).sort().slice(-7); // Last 7 days
+                let chartHTML = '';
+                
+                if (dates.length === 0) {
+                    chartHTML = '<div class="text-center py-2 text-slate-500">No data yet</div>';
+                } else {
+                    dates.forEach(date => {
+                        const count = dailyHistory[date] || 0;
+                        const maxCount = Math.max(...Object.values(dailyHistory).map(v => parseInt(v)));
+                        const percentage = maxCount > 0 ? (count / maxCount) * 100 : 0;
+                        
+                        // Format date (DD/MM)
+                        const formattedDate = new Date(date).toLocaleDateString('en-IN', {
+                            day: '2-digit',
+                            month: 'short'
+                        });
+                        
+                        chartHTML += `
+                            <div class="mb-1">
+                                <div class="flex justify-between text-xs mb-0.5">
+                                    <span>${formattedDate}</span>
+                                    <span class="font-bold">${count}</span>
+                                </div>
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                    <div class="bg-emerald-500 h-2 rounded-full" style="width: ${percentage}%"></div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+                
+                weeklyChart.innerHTML = chartHTML;
+            }
+            
+            // Increment counter on button click
+            telegramBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Get current counts
+                let total = parseInt(localStorage.getItem('totalClickCount') || '0');
+                let today = parseInt(localStorage.getItem('todayClickCount') || '0');
+                let history = JSON.parse(localStorage.getItem('clickHistory') || '[]');
+                let dailyHistory = JSON.parse(localStorage.getItem('dailyHistory') || '{}');
+                
+                // Increment counters
+                total++;
+                today++;
+                
+                // Get today's date in YYYY-MM-DD format
+                const todayDate = new Date().toISOString().split('T')[0];
+                
+                // Update daily history
+                dailyHistory[todayDate] = (dailyHistory[todayDate] || 0) + 1;
+                
+                // Add to history
+                history.push({
+                    timestamp: new Date().toISOString(),
+                    time: new Date().toLocaleTimeString('en-IN'),
+                    date: new Date().toLocaleDateString('en-IN')
+                });
+                
+                // Keep only last 100 entries
+                if (history.length > 100) {
+                    history = history.slice(-100);
+                }
+                
+                // Save to localStorage
+                localStorage.setItem('totalClickCount', total.toString());
+                localStorage.setItem('todayClickCount', today.toString());
+                localStorage.setItem('clickHistory', JSON.stringify(history));
+                localStorage.setItem('dailyHistory', JSON.stringify(dailyHistory));
+                localStorage.setItem('lastTrackDate', new Date().toDateString());
+                
+                // Update hidden counter
+                clickCounter.textContent = `Clicks: ${total}`;
+                
+                // Update admin panel
+                updateAdminPanel();
+                
+                // Add micro-interaction feedback
+                this.classList.add('scale-95', 'bg-gradient-to-r', 'from-emerald-600', 'via-emerald-700', 'to-cyan-700');
+                const iconHTML = isMobile ? '<i class="fab fa-telegram text-2xl"></i>' : '<i class="fab fa-telegram text-3xl"></i>';
+                const textHTML = isMobile ? '<span class="text-lg">Redirecting...</span>' : '<span class="text-2xl md:text-3xl">Redirecting...</span>';
+                this.innerHTML = iconHTML + textHTML + (isMobile ? '' : '<i class="fas fa-arrow-right text-2xl"></i>');
+                
+                setTimeout(() => {
+                    this.classList.remove('scale-95');
+                    const originalIconHTML = isMobile ? '<i class="fab fa-telegram text-2xl"></i>' : '<i class="fab fa-telegram text-3xl"></i>';
+                    const originalTextHTML = isMobile ? '<span class="text-lg">Join Trading Community</span>' : '<span class="text-2xl md:text-3xl">Join Trading Community</span>';
+                    this.innerHTML = originalIconHTML + originalTextHTML + (isMobile ? '' : '<i class="fas fa-arrow-right text-2xl"></i>');
+                }, 300);
+                
+                // Redirect after short delay
+                setTimeout(() => {
+                    window.location.href = 'https://t.me/+5gY7UyddUkg5ZjJl';
+                }, 500);
+            });
+            
+            // Admin Panel Functions
+            let secretClickCount = 0;
+            let secretTimeout;
+            
+            // Secret access (click top-right corner 3 times)
+            secretAccess.addEventListener('click', function() {
+                secretClickCount++;
+                
+                // Clear previous timeout
+                if (secretTimeout) {
+                    clearTimeout(secretTimeout);
+                }
+                
+                // Reset count after 2 seconds
+                secretTimeout = setTimeout(() => {
+                    secretClickCount = 0;
+                }, 2000);
+                
+                // If clicked 3 times, show admin panel
+                if (secretClickCount >= 3) {
+                    adminPanel.classList.add('show');
+                    secretClickCount = 0;
+                    
+                    // Log access
+                    console.log('🔓 Admin panel accessed at:', new Date().toLocaleTimeString('en-IN'));
+                }
+            });
+            
+            // Close admin panel
+            closeAdminPanel.addEventListener('click', function() {
+                adminPanel.classList.remove('show');
+            });
+            
+            // Close admin panel when clicking outside on mobile
+            if (isMobile) {
+                document.addEventListener('click', function(e) {
+                    if (adminPanel.classList.contains('show') && 
+                        !adminPanel.contains(e.target) && 
+                        e.target.id !== 'secretAccess') {
+                        adminPanel.classList.remove('show');
+                    }
+                });
+            }
+            
+            // Refresh stats
+            refreshStats.addEventListener('click', function() {
+                updateAdminPanel();
+                this.innerHTML = '<i class="fas fa-check mr-1"></i> Refreshed!';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-sync-alt mr-1"></i> Refresh';
+                }, 1000);
+            });
+            
+            // Export data
+            exportData.addEventListener('click', function() {
+                const data = {
+                    totalClicks: localStorage.getItem('totalClickCount'),
+                    todayClicks: localStorage.getItem('todayClickCount'),
+                    clickHistory: JSON.parse(localStorage.getItem('clickHistory') || '[]'),
+                    dailyHistory: JSON.parse(localStorage.getItem('dailyHistory') || '{}'),
+                    exportDate: new Date().toISOString(),
+                    exportTime: new Date().toLocaleTimeString('en-IN')
+                };
+                
+                const dataStr = JSON.stringify(data, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                
+                const exportFileName = `trading-clicks-${new Date().toISOString().split('T')[0]}.json`;
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', exportFileName);
+                linkElement.click();
+                
+                this.innerHTML = '<i class="fas fa-check mr-1"></i> Exported!';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-download mr-1"></i> Export';
+                }, 2000);
+                
+                console.log('📥 Trading click data exported');
+            });
+            
+            // Dark mode toggle
+            darkModeToggle.addEventListener('click', function() {
+                document.documentElement.classList.toggle('dark');
+                const icon = this.querySelector('i');
+                if (document.documentElement.classList.contains('dark')) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
+            
+            // Check for saved dark mode preference
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.documentElement.classList.add('dark');
+                const icon = darkModeToggle.querySelector('i');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+            
+            // Keyboard shortcut for admin panel (Ctrl+Shift+T for Trading)
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey && e.shiftKey && e.key === 'T') {
+                    e.preventDefault();
+                    adminPanel.classList.toggle('show');
+                    console.log('🔓 Admin panel toggled via keyboard shortcut Ctrl+Shift+T');
+                }
+            });
+            
+            // Prevent scrolling on mobile
+            if (isMobile) {
+                document.body.addEventListener('wheel', preventScroll, { passive: false });
+                document.body.addEventListener('touchmove', preventScroll, { passive: false });
+                
+                function preventScroll(e) {
+                    if (!e.target.closest('#adminPanel')) {
+                        e.preventDefault();
+                    }
+                    return false;
+                }
+            }
+            
+            // Auto-update chart animation
+            setInterval(() => {
+                const chartLines = document.querySelectorAll('.chart-line');
+                chartLines.forEach(line => {
+                    line.style.animation = 'none';
+                    setTimeout(() => {
+                        line.style.animation = 'chartMove 3s linear infinite';
+                    }, 10);
+                });
+            }, 3000);
+            
+            // Initial console message
+            console.log('📈 Trading community landing page active');
+            console.log('   Access admin panel by:');
+            console.log('   1. Clicking top-right corner 3 times, OR');
+            console.log('   2. Pressing Ctrl+Shift+T');
+            
+            // Auto-save and check date change
+            setInterval(() => {
+                const today = new Date().toDateString();
+                const lastSavedDate = localStorage.getItem('lastTrackDate');
+                
+                if (lastSavedDate !== today) {
+                    localStorage.setItem('todayClickCount', '0');
+                    localStorage.setItem('lastTrackDate', today);
+                    updateDailyHistory();
+                    updateAdminPanel();
+                    console.log('📅 New day started, daily counter reset');
+                }
+            }, 60000); // Check every minute
+            
+            // Add sparkle effect to button on hover (desktop only)
+            if (!isMobile) {
+                telegramBtn.addEventListener('mouseenter', function() {
+                    const sparkles = ['✨', '🚀', '📈', '💰', '⚡'];
+                    const sparkle = sparkles[Math.floor(Math.random() * sparkles.length)];
+                    
+                    const sparkleElement = document.createElement('span');
+                    sparkleElement.textContent = sparkle;
+                    sparkleElement.className = 'absolute animate-bounce text-2xl';
+                    sparkleElement.style.left = Math.random() * 80 + 10 + '%';
+                    sparkleElement.style.top = '-20px';
+                    
+                    this.appendChild(sparkleElement);
+                    
+                    setTimeout(() => {
+                        sparkleElement.remove();
+                    }, 1000);
+                });
+            }
+            
+            // Mobile-specific optimizations
+            if (isMobile) {
+                // Improve touch responsiveness
+                document.querySelectorAll('button, a').forEach(el => {
+                    el.style.cursor = 'pointer';
+                });
+                
+                // Add touch feedback to buttons
+                document.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('touchstart', function() {
+                        this.classList.add('opacity-80');
+                    });
+                    
+                    button.addEventListener('touchend', function() {
+                        this.classList.remove('opacity-80');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
