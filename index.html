@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>TradingPro | Join Our Exclusive Trading Community</title>
+    
+    <!-- ✅ Sirf YEH Google Analytics Code ADD KIYA HAI -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JLM1KK3997"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JLM1KK3997');
+    </script>
+    <!-- ✅ Google Analytics Code END -->
+    
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome for Icons -->
@@ -744,6 +755,24 @@
             telegramBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 
+                // ✅ Google Analytics Event Track Karein
+                if (typeof gtag === 'function') {
+                    gtag('event', 'click', {
+                        'event_category': 'button',
+                        'event_label': 'telegram_join_button',
+                        'button_location': 'main_section',
+                        'button_text': 'Join Trading Community',
+                        'page_url': window.location.href
+                    });
+                    
+                    // Custom event for detailed tracking
+                    gtag('event', 'telegram_button_click', {
+                        'event_category': 'conversion',
+                        'event_label': 'trading_community_join',
+                        'value': 1
+                    });
+                }
+                
                 // Get current counts
                 let total = parseInt(localStorage.getItem('totalClickCount') || '0');
                 let today = parseInt(localStorage.getItem('todayClickCount') || '0');
@@ -784,6 +813,11 @@
                 
                 // Update admin panel
                 updateAdminPanel();
+                
+                // Google Analytics success log
+                if (typeof gtag === 'function') {
+                    console.log('✅ Google Analytics event sent');
+                }
                 
                 // Add micro-interaction feedback
                 this.classList.add('scale-95');
@@ -932,8 +966,16 @@
                 });
             }, 3000);
             
+            // Check if Google Analytics loaded
+            if (typeof gtag === 'function') {
+                console.log('✅ Google Analytics successfully loaded with ID: G-JLM1KK3997');
+                console.log('📊 Telegram button clicks will be tracked in Google Analytics');
+            } else {
+                console.warn('⚠️ Google Analytics not loaded. Check the tracking code.');
+            }
+            
             // Initial console message
-            console.log('📈 Trading community landing page active - MOBILE FIXED VERSION');
+            console.log('📈 Trading community landing page active - WITH GOOGLE ANALYTICS TRACKING');
             console.log('   Access admin panel by:');
             console.log('   1. Clicking top-right corner 3 times, OR');
             console.log('   2. Pressing Ctrl+Shift+T');
